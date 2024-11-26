@@ -28,6 +28,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //connect database
+//mongodb://localhost:27017/
+//mongodb+srv://duynnps40287:ngocduydz3@cluster0.rer9i.mongodb.net
 mongoose.connect('mongodb+srv://duynnps40287:ngocduydz3@cluster0.rer9i.mongodb.net/hihi')
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
