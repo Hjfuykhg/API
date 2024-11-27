@@ -21,7 +21,7 @@ router.post("/login", async function(req,res){
     }
     
   } catch (e) {
-    res.status(400).json({status: false, message:"có lỗi"});
+    res.status(401).json({status: false, message:"có lỗi"});
   }
 });
 module.exports = router;
