@@ -13,11 +13,11 @@ router.post("/login", async function(req,res){
     const{name,password}=req.body;
     const checkUesr = await uesrModel.findOne({name: name,password: password});
     if (checkUesr == null) {
-      res.status(200).json({status: false, message:"sai thông tinh"});
+      res.status(400).json({status: false, message:"sai thông tinh"});
     } else {
       const token = JWT.sign({name: name},config.SECRETKEY,{expiresIn: '30s'});
       const refreshToken = JWT.sign({name: name},config.SECRETKEY,{expiresIn: '1d'});
-      res.status(400).json({status: true, message:"đăng nhập thành công", token: token, refreshToken:refreshToken});
+      res.status(200).json({status: true, message:"đăng nhập thành công", token: token, refreshToken:refreshToken});
     }
     
   } catch (e) {
