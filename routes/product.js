@@ -133,10 +133,11 @@ router.post("/add", async function (req, res) {
         if (err) {
           res.status(403).json({ "status": false, message: "có lỗi xảy ra" + err });
         } else {
-          const { ten, gia, soluong } = req.body;
-          const newItem = { ten, gia, soluong };
+          const { masp, tensp, gia, soluong } = req.body;
+          const newItem = { masp, tensp, gia, soluong };
           await product.create(newItem);
           res.status(200).json({ status: true, message: "Thành công" });
+
         }
       });
     } else {
