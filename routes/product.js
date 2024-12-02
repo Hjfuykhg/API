@@ -149,18 +149,16 @@ router.post("/add", async function (req, res) {
   }
 })
 
-// localhost:3210/product/edit/672f51668011c2592855ab7c
-// lưu ý nhập đủ thông tin quan trọng nhất là id
 router.put("/edit/:id", async function (req, res) {
   try {
     const token = req.header("Authorization").split(' ')[1];
     if (token) {
-      JWT.verify(token, config.SECRETKEY, async function (err, id) {
+      JWT.verify(token, config.SECRETKEY, async function (err, decoded) {
         if (err) {
-          res.status(403).json({ "status": false, message: "có lỗi xảy ra" + err });
+          res.status(403).json({ "status": false, message: "Có lỗi xảy ra: " + err });
         } else {
           const { masp, ten, gia, soluong } = req.body;
-          const findProduct = await product.findById(id);
+          const findProduct = await product.findById(req.params.id); // Sử dụng req.params.id thay vì id từ token
           if (findProduct) {
             findProduct.masp = masp ? masp : findProduct.masp;
             findProduct.ten = ten ? ten : findProduct.ten;
@@ -169,18 +167,17 @@ router.put("/edit/:id", async function (req, res) {
             await findProduct.save();
             res.status(200).json({ status: true, message: "Thành công" });
           } else {
-            res.status(400).json({ status: false, message: "Không tìm thấy sp" });
+            res.status(400).json({ status: false, message: "Không tìm thấy sản phẩm" });
           }
         }
       });
     } else {
-      res.status(401).json({ "status": false, message: "có lỗi xảy ra" + err });
+      res.status(401).json({ "status": false, message: "Token không hợp lệ" });
     }
-
   } catch (e) {
-    res.status(400).json({ status: false, message: "Có lỗi xảy ra" });
+    res.status(400).json({ status: false, message: "Có lỗi xảy ra: " + e.message });
   }
-})
+});
 
 //xóa
 router.delete("/delete/:id", async function (req, res) {
