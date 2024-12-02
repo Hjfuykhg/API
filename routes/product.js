@@ -159,7 +159,7 @@ router.put("/edit/:id", async function (req, res) {
         if (err) {
           res.status(403).json({ "status": false, message: "có lỗi xảy ra" + err });
         } else {
-          const { id,masp, ten, gia, soluong } = req.body;
+          const { masp, ten, gia, soluong } = req.body;
           const findProduct = await product.findById(id);
           if (findProduct) {
             findProduct.masp = masp ? masp : findProduct.masp;
