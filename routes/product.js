@@ -153,20 +153,18 @@ router.post("/add", async function (req, res) {
 // lưu ý nhập đủ thông tin quan trọng nhất là id
 router.put("/edit/:id", async function (req, res) {
   try {
-    const token = req.header("Authorization").split(' ')[1];  // Lấy token từ header Authorization
+    const token = req.header("Authorization").split(' ')[1];
     if (token) {
       JWT.verify(token, config.SECRETKEY, async function (err, decoded) {
         if (err) {
           res.status(403).json({ "status": false, message: "Có lỗi xảy ra: " + err });
         } else {
-          const { masp, ten, gia, soluong } = req.body;
-
-          // Sử dụng ID từ URL để tìm sản phẩm
-          const findProduct = await product.findById(req.params.id);  // Đây là ID sản phẩm từ URL
+          const { masp, tensp, gia, soluong } = req.body;
+          const findProduct = await product.findById(req.params.id);
 
           if (findProduct) {
             findProduct.masp = masp ? masp : findProduct.masp;
-            findProduct.ten = ten ? ten : findProduct.ten;
+            findProduct.tensp = tensp ? tensp : findProduct.tensp;
             findProduct.gia = gia ? gia : findProduct.gia;
             findProduct.soluong = soluong ? soluong : findProduct.soluong;
             await findProduct.save();
