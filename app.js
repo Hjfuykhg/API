@@ -9,11 +9,13 @@ require("./models/uesrModel");
 require("./models/categoryModel");
 require("./models/ProductModel");
 require("./models/SinhvienModel");
+require("./models/nganhangModel")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRouter = require('./routes/product');
 var sinhvienRouter = require('./routes/sinhvien');
+var nganhangRouter = require('./routes/nganhang');
 
 var app = express();
 
@@ -30,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //connect database
 //mongodb://localhost:27017/
 //mongodb+srv://duynnps40287:ngocduydz3@cluster0.rer9i.mongodb.net
-mongoose.connect('mongodb+srv://duynnps40287:ngocduydz3@cluster0.rer9i.mongodb.net/hihi')
+mongoose.connect('mongodb+srv://duynnps40287:ngocduydz3@cluster0.rer9i.mongodb.net')
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
 
@@ -38,7 +40,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
 app.use('/sinhvien', sinhvienRouter);
-// catch 404 and forward to error handler
+app.use('/nganhang',nganhangRouter);
+
 app.use(function(req, res, next) {
   next(createError(404));
 });

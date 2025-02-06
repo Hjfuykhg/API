@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 const products = new Schema({
     id:{type: ObjectId},
-    masp:{type: String,},
+    masp:{type: String},
     tensp:{type: String},
     gia:{type: Number},
     soluong:{type: Number},
